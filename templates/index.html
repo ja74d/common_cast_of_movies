@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if common_list %}
+<center>
+    {% for common in common_list %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{common.image}}" class="card-img-top" alt="">
+        <div class="card-body">
+            <h5 class="card-title">{{common}}</h5>
+            <p class="card-text"></p>
+            <a href="{{common.url}}" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+    {% endfor %}
+</center>
+
+{% else %}
+<center>
+<form method="POST" action="/">
+    {{ form.hidden_tag() }}
+    {{ form.imdb_id1.label }}<br>
+    {{ form.imdb_id1(size=20) }}
+    <br><br>
+    {{ form.imdb_id2.label }}<br>
+    {{ form.imdb_id2(size=20) }}<br><br>
+    {{ form.submit() }}
+</form>
+</center>
+{% endif %}
+
+
+{% endblock %}
