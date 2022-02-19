@@ -34,12 +34,18 @@ def index():
         soup1 = BeautifulSoup(source1, 'lxml')
         soup2 = BeautifulSoup(source2, 'lxml')
 
+        link_list = []
+
         fullcast1 = []
 
         for cast in soup1.find_all('tr', class_='odd') + soup1.find_all('tr', class_='even'):
             
             name = cast.find_all('td')[1].text
             name = name.replace('\n', '')
+            link = cast.find_all('td')[1].find('a')['href']
+            link = "https://www.imdb.com" + link
+            link_list.append(link)
+            
             fullcast1.append(name)
 
         fullcast2 = []
@@ -48,13 +54,18 @@ def index():
             
             name = cast.find_all('td')[1].text
             name = name.replace('\n', '')
+            link = cast.find_all('td')[1].find('a')['href']
+            link = "https://www.imdb.com" + link
+            link_list.append(link)
+            
             fullcast2.append(name)
 
         common_list = []
+        
 
         for i in fullcast1:
             if i in fullcast2:
                 common_list.append(i)
-        return render_template('index.html', form=form, common_list=common_list)
+        return render_template('index.html', form=form, common_list=common_list, link_list=link_list)
 
     return render_template('index.html', form=form, common_list=None)
